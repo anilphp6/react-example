@@ -10,7 +10,7 @@ import {Link, withRouter} from 'react-router-dom'
 import CartIcon from 'material-ui-icons/ShoppingCart'
 import Badge from 'material-ui/Badge'
 import cart from './../cart/cart-helper'
-
+import {t} from '../Utility/i18n'
 const isActive = (history, path) => {
   if (history.location.pathname == path)
     return {color: '#bef67a'}
@@ -27,7 +27,7 @@ const Menu = withRouter(({history}) => (
   <AppBar position="static">
     <Toolbar>
       <Typography type="title" color="inherit">
-        MERN Marketplace
+	  {t('sitename')}
       </Typography>
       <div>
         <Link to="/">
@@ -61,14 +61,23 @@ const Menu = withRouter(({history}) => (
         </span>)
       }
       {
-        auth.isAuthenticated() && ( <span>
+        auth.isAuthenticated() && ( 
+        <span>
           {auth.isAuthenticated().user.seller && (<Link to="/seller/shops"><Button style={isPartActive(history, "/seller/")}>My Shops</Button></Link>)}
-          <Link to={"/user/" + auth.isAuthenticated().user._id}>
-            <Button style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>My Profile</Button>
+          { 
+          auth.isAuthenticated().user.admin !== undefined &&  auth.isAuthenticated().user.admin && (
+            
+            <Link to={"/users/"}>
+              <Button style={isActive(history, "/users/")}>users</Button>
+            </Link>
+            )  
+            
+        }
+         
+         <Link to={"/user/" + auth.isAuthenticated().user._id}>
+                <Button style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>My Profile</Button>
           </Link>
-          <Link to={"/users/"}>
-            <Button style={isActive(history, "/users/")}>users</Button>
-          </Link>
+
           <Button color="inherit" onClick={() => {
               auth.signout(() => history.push('/'))
             }}>Sign out</Button>
