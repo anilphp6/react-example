@@ -8,7 +8,7 @@
     "formik": "^1.0.3",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts": "1.1.4",
+    "react-scripts": "5.0.1",
     "yup": "^0.26.2"
   },
   "scripts": {
